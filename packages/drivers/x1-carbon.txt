@@ -1,0 +1,4 @@
+intel-ucode
+xf86-video-intel
+mesa
+vulkan-intel

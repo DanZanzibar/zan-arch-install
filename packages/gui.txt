@@ -1,0 +1,10 @@
+xorg-server
+xorg-xinit
+xorg-xinput
+xorg-xrandr
+autorandr
+herbstluftwm
+polybar
+picom
+brightnessctl
+dmenu

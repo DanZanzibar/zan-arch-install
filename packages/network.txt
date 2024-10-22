@@ -1,0 +1,4 @@
+openssh
+syncthing
+bluez
+bluez-utils

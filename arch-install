@@ -1,0 +1,105 @@
+#!/bin/bash
+
+echo "Did you connect to the internet? (y/n)"
+read internet
+
+if [[ $internet = 'n' ]]; then
+    exit 1
+fi
+
+echo "Did you create and format your partitions? (y/n)"
+read partitions
+
+if [[ $partitions = 'n' ]]; then
+    exit 1
+fi
+
+echo "Which computer (desktop/x1-carbon/legion)?"
+read comp
+
+if [[ $comp = 'desktop' ]]; then
+    drivers=zan-arch-install/packages/drivers/desktop.txt
+elif [[ $comp = 'x1-carbon' ]]; then
+    drivers=zan-arch-install/packages/drivers/x1-carbon.txt
+elif [[ $comp = 'legion' ]]; then
+    drivers=zan-arch-install/packages/drivers/legion.txt
+else
+    echo "Computer not supported. Exiting..."
+    exit 1
+fi
+
+echo "Disk: (ex. /dev/sda1 or /dev/nvme0n1)"
+read disk
+
+echo "Boot partition: (ex. /dev/sda1p0 or /dev/nvme0n1p1)"
+read bootpart
+
+echo "Root partition: (ex. /dev/sda0p1 or /dev/nvme0n0)"
+read rootpart
+
+echo "Enter Windows partition (ex. /dev/sda0pq or /dev/nvme0n1p1)"
+read windowspart
+
+pswd=''
+
+while [[ -z "$pswd" ]]; do
+    echo "Enter password:"
+    read pswd1
+
+    echo "Reenter password:"
+    read pswd2
+
+    if [[ "$pswd1" != "$pswd2" ]]; then
+	echo "Passwords don't match."
+    else
+	pswd="$pswd1"
+    fi
+done
+
+mount "$rootpart" /mnt
+mount --mkdir "$bootpart" /mnt/boot
+
+if [[ "$windowspart" ]]; then
+    mount --mkdir "$windowspart" /mnt/winboot
+fi
+
+pacstrap -K /mnt $(cat packages/base.txt "$drivers")
+
+genfstab -U /mnt >> /mnt/etc/fstab
+
+arch-chroot /mnt <<EOF
+# Locale set up
+ln -sf /usr/share/zoneinfo/posix/Canada/Mountain /etc/localtime
+hwclock --systohc
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+# Network Manager config
+echo "$comp" > /etc/hostname
+systemctl enable NetworkManager.service
+
+# Set up user and passwords
+echo "root:$pswd" | chpasswd
+useradd -m zan
+echo "zan:$pswd" | chpasswd
+
+# Set up GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+if [[ "$windowspart" ]]; then
+    echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
+fi
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+
+# Install packages
+pacman -S --noconfirm - < 
+
+# Set up config files
+
+# Finishing up.
+echo "Installation complete! Things to do after reboot:"
+umount -R /mnt
+reboot
+EOF

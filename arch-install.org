@@ -1,0 +1,71 @@
+* Config Files
+** General
+/etc/X11/xorg.conf.d/ (for touchpad settings)
+*** Home
+.xinitrc
+*** .config/
+herbstluftwm
+polybar
+Zeal
+** Machine Specific
+~/.Xresources (for setting DPI)
+.config/autorandr/
+* Packages
+** General
+git
+github-cli
+bash-completion
+sudo
+tree
+less
+alacritty
+emacs
+grub
+efibootmgr
+*** Xorg
+xorg-server
+xorg-xrandr
+xorg-xinit
+xorg-xinput
+autorandr
+*** AUR
+yay
+*** Network
+networkmanager (s&e NetworkManager.service, nmcli for manual connections)
+bluez (s&e bluetooth.service)
+bluez-utils
+openssh (s&e sshd.service)
+syncthing (s&e syncthing.service)
+*** Display
+picom
+brightnessctl
+*** Audio
+pulseaudio (s&e not sure...)
+pulseaudio-alsa
+pulseaudio-bluetooth
+pulseaudio-equalizer
+*** Application Launcher
+dmenu
+*** Python
+python
+python-pipx
+*** Media
+qbittorrent
+vlc
+*** Web
+google-chrome-stable (AUR)
+** Machine Specific
+*** X1
+intel-ucode
+xf86-video-intel
+mesa
+vulkan-intel
+*** Legion
+intel-ucode
+nvidia-open
+nvidia-utils
+*** Desktop
+amd-ucode
+xf86-video-amdgpu
+amdgpu-pro-oglp
+vulkan-amdgpu-pro
