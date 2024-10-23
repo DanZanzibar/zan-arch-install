@@ -17,25 +17,25 @@ systemctl --user start pulseaudio.service
 systemctl --user start syncthing.service
 
 git clone https://github.com/DanZanzibar/dotfiles.git
-source dotfiles/.bashrc
+source ~/dotfiles/.bashrc
 
 mkdir /etc/X11/xorg.conf.d
-for file in dotfiles/xorg.conf.d/*; do
-    ln -s -t /etc/X11/xorg.conf.d/ "$file"
+for file in ~/dotfiles/xorg.conf.d/*; do
+    ln -s -t /etc/X11/xorg.conf.d/ "~/dotfiles/xorg.conf.d/$file"
 done
 
-ln -sf -t "$HOME" dotfiles/.bashrc dotfiles/.gitconfig dotfiles/.xinitrc dotfiles/.xbindkeysrc
+ln -sf -t . ~/dotfiles/.bashrc ~/dotfiles/.gitconfig ~/dotfiles/.xinitrc ~/dotfiles/.xbindkeysrc
 
 if [[ "$HOSTNAME" != 'desktop' ]]; then
-    ln -sf -t "$HOME" dotfiles/.Xresources
+    ln -sf -t . ~/dotfiles/x1-carbon/.Xresources 
 fi
 
-mkdir .config
-rm -r .config/polybar .config/autorandr .config/Zeal
-ln -s -t .config dotfiles/polybar dotfiles/Zeal
+mkdir ~/.config
+rm -r ~/.config/polybar ~/.config/autorandr ~/.config/Zeal
+ln -s -t ~/.config ~/dotfiles/polybar ~/dotfiles/Zeal
 
-mkdir .config/herbstluftwm 
-ln -sf -t .config/herbstluftwm dotfiles/herbstluftwm/autostart dotfiles/herbstluftwm/scripts/
+mkdir ~/.config/herbstluftwm 
+ln -sf -t ~/.config/herbstluftwm ~/dotfiles/herbstluftwm/autostart ~/dotfiles/herbstluftwm/scripts/
 
-ln -s -t .config "dotfiles/$HOSTNAME/autorandr"
-ln -s -t .config/herbstluftwm "dotfiles/$HOSTNAME/layouts"
+ln -s -t ~/.config "~/dotfiles/$HOSTNAME/autorandr"
+ln -s -t ~/.config/herbstluftwm "~/dotfiles/$HOSTNAME/layouts"
