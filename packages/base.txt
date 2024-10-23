@@ -13,3 +13,7 @@ git
 man-db
 man-pages
 texinfo
+sudo
+bash-completion
+tree
+less

@@ -1,10 +1,23 @@
 #!/usr/bin/env bash
 
+# Install packages
+pacman -Syu
+pacman -S --noconfirm - < zan-arch-install/packages/gui.txt
+pacman -S --noconfirm - < zan-arch-install/packages/audio.txt
+pacman -S --noconfirm - < zan-arch-install/packages/network.txt
+
+# Systemd enabling for system services
+systemctl enable bluetooth.service
+systemctl enable sshd.service
+
 # Enable systemd user services
-systemctl --user enable pulseaudio.service syncthing.service
-systemctl --user start pulseaudio.service syncthing.service
+systemctl --user enable pulseaudio.service
+systemctl --user enable syncthing.service
+systemctl --user start pulseaudio.service
+systemctl --user start syncthing.service
 
 git clone https://github.com/DanZanzibar/dotfiles.git
+source dotfiles/.bashrc
 
 mkdir /etc/X11/xorg.conf.d
 for file in dotfiles/xorg.conf.d/*; do

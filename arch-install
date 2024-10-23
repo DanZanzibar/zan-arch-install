@@ -9,7 +9,7 @@ if [[ $internet = 'n' ]]; then
     exit 1
 fi
 
-echo "Did you create and format your partitions? (y/n)"
+echo "Did you create (but not format) your partitions? (y/n)"
 read partitions
 
 if [[ $partitions = 'n' ]]; then
@@ -54,6 +54,9 @@ while [[ -z "$pswd" ]]; do
     fi
 done
 
+mkfs.ext4 "$rootpart"
+mkfs.fat -F 32 "$bootpart"
+
 mount "$rootpart" /mnt
 mount --mkdir "$bootpart" /mnt/boot
 
@@ -61,7 +64,9 @@ if [[ "$windowspart" ]]; then
     mount --mkdir "$windowspart" /mnt/winboot
 fi
 
-pacstrap -K /mnt $(cat zan-arch-install/packages/base.txt "$drivers")
+git clone https://github.com/DanZanzibar/zan-arch-install.git
+
+pacstrap -K /mnt $(cat zan-arch-install/packages/base.txt "$drivers" | tr '\n' ' ')
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
@@ -91,16 +96,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # Get zan-arch-install downloaded.
 git clone https://github.com/DanZanzibar/zan-arch-install.git /home/zan/zan-arch-install
-
-# Install packages
-pacman -S --noconfirm - < zan-arch-install/packages/core-utils.txt
-pacman -S --noconfirm - < zan-arch-install/packages/gui.txt
-pacman -S --noconfirm - < zan-arch-install/packages/audio.txt
-pacman -S --noconfirm - < zan-arch-install/packages/network.txt
-
-# Systemd enabling for system services
-systemctl enable bluetooth.service
-systemctl enable sshd.service
 EOF
 
 # Finishing up.
