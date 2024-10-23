@@ -61,16 +61,9 @@ if [[ "$windowspart" ]]; then
     mount --mkdir "$windowspart" /mnt/winboot
 fi
 
-pacstrap -K /mnt $(cat packages/base.txt "$drivers")
+pacstrap -K /mnt $(cat zan-arch-install/packages/base.txt "$drivers")
 
 genfstab -U /mnt >> /mnt/etc/fstab
-
-echo "Got this far... continue? (y/n)"
-read continue
-
-if [[ "$continue" = 'n' ]]; then
-    exit 1
-fi
 
 arch-chroot /mnt <<EOF
 # Locale set up
@@ -106,15 +99,6 @@ cat $pack_dir/core-utils.txt $pack_dir/gui.txt $pack_dir/audio.txt $pack_dir/net
 # Systemd enabling for system services
 systemctl enable bluetooth.service sshd.service
 EOF
-
-
-
-echo "Got this far... continue? (y/n)"
-read continue
-
-if [[ "$continue" = 'n' ]]; then
-    exit 1
-fi
 
 # Finishing up.
 echo "Installation complete! Things to do after reboot:"
