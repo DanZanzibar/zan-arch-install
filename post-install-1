@@ -21,7 +21,7 @@ source /home/zan/dotfiles/.bashrc
 
 mkdir /etc/X11/xorg.conf.d
 for file in /home/zan/dotfiles/xorg.conf.d/*; do
-    ln -s -t /etc/X11/xorg.conf.d/ "$file"
+    ln -sf -t /etc/X11/xorg.conf.d/ "$file"
 done
 
 ln -sf -t . /home/zan/dotfiles/.bashrc /home/zan/dotfiles/.gitconfig /home/zan/dotfiles/.xinitrc /home/zan/dotfiles/.xbindkeysrc
