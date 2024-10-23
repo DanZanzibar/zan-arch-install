@@ -93,7 +93,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 git clone https://github.com/DanZanzibar/zan-arch-install.git /home/zan/zan-arch-install
 
 # Install packages
-pack_dir=/home/zan/zan-arch-install/packages
+pack_dir=zan-arch-install/packages
 cat $pack_dir/core-utils.txt $pack_dir/gui.txt $pack_dir/audio.txt $pack_dir/network.txt | pacman -S --noconfirm -
 
 # Systemd enabling for system services
@@ -105,6 +105,8 @@ echo "Installation complete! Things to do after reboot:"
 echo "  1. Check that sudo is working and 'zan' added to sudoers file."
 echo "  2. Get connected to internet via nmcli."
 echo "  3. Run 'sudo zan-arch-install/post-install'."
+echo "Ready to restart?"
+read restart
 umount -R /mnt
 reboot
 

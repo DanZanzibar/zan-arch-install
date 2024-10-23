@@ -6,8 +6,9 @@ systemctl --user start pulseaudio.service syncthing.service
 
 git clone https://github.com/DanZanzibar/dotfiles.git
 
+mkdir /etc/X11/xorg.conf.d
 for file in dotfiles/xorg.conf.d/*; do
-    ln -s -t /etc/X11/xorg.conf.d/ file
+    ln -s -t /etc/X11/xorg.conf.d/ "$file"
 done
 
 ln -sf -t "$HOME" dotfiles/.bashrc dotfiles/.gitconfig dotfiles/.xinitrc dotfiles/.xbindkeysrc
