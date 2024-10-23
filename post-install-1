@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Install more packages.
 sudo ~/zan-arch-install/post-install-1-root
 
 # Enable systemd user services
@@ -8,26 +9,30 @@ systemctl --user enable syncthing.service
 systemctl --user start pulseaudio.service
 systemctl --user start syncthing.service
 
+# Get dot files and do symlinking.
 git clone https://github.com/DanZanzibar/dotfiles.git
 source ~/dotfiles/.bashrc
 
+# Symlinks for xorg conf files.
 mkdir /etc/X11/xorg.conf.d
 for file in ~/dotfiles/xorg.conf.d/*; do
     ln -sf -t /etc/X11/xorg.conf.d/ "$file"
 done
 
+# Symlinks for home directory dot files.
 ln -sf -t . ~/dotfiles/.bashrc ~/dotfiles/.gitconfig ~/dotfiles/.xinitrc ~/dotfiles/.xbindkeysrc
 
+# Symlink '.Xresources' for high DPI screens.
 if [[ "$HOSTNAME" != 'desktop' ]]; then
     ln -sf -t . ~/dotfiles/x1-carbon/.Xresources 
 fi
 
+# Symlinks for '.config'.
 mkdir ~/.config
 rm -r ~/.config/polybar ~/.config/autorandr ~/.config/Zeal
-ln -s -t ~/.config ~/dotfiles/polybar ~/dotfiles/Zeal
+ln -s -t ~/.config ~/dotfiles/polybar ~/dotfiles/Zeal "~/dotfiles/$HOSTNAME/autorandr"
 
+# Herbstluftwm - link autostart and layouts folder.
 mkdir ~/.config/herbstluftwm 
-ln -sf -t ~/.config/herbstluftwm ~/dotfiles/herbstluftwm/autostart ~/dotfiles/herbstluftwm/scripts/
-
-ln -s -t ~/.config "~/dotfiles/$HOSTNAME/autorandr"
+ln -sf -t ~/.config/herbstluftwm ~/dotfiles/herbstluftwm/autostart
 ln -s -t ~/.config/herbstluftwm "~/dotfiles/$HOSTNAME/layouts"
