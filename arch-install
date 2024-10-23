@@ -64,6 +64,8 @@ if [[ "$windowspart" ]]; then
     mount --mkdir "$windowspart" /mnt/winboot
 fi
 
+pacman -Sy
+pacman -S git
 git clone https://github.com/DanZanzibar/zan-arch-install.git
 
 pacstrap -K /mnt $(cat zan-arch-install/packages/base.txt "$drivers" | tr '\n' ' ')
