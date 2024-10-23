@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Partitioning: 1 x 1 GB EFI partition, the rest is root.
+
 echo "Did you connect to the internet? (y/n)"
 read internet
 
@@ -17,13 +19,9 @@ fi
 echo "Which computer (desktop/x1-carbon/legion)?"
 read comp
 
-if [[ $comp = 'desktop' ]]; then
-    drivers=zan-arch-install/packages/drivers/desktop.txt
-elif [[ $comp = 'x1-carbon' ]]; then
-    drivers=zan-arch-install/packages/drivers/x1-carbon.txt
-elif [[ $comp = 'legion' ]]; then
-    drivers=zan-arch-install/packages/drivers/legion.txt
-else
+drivers="zan-arch-install/packages/drivers/$comp.txt"
+
+if [[ $comp != 'desktop' ]] && [[ $comp != 'x1-carbon' ]] && [[ $comp != 'legion' ]]; then
     echo "Computer not supported. Exiting..."
     exit 1
 fi
@@ -91,15 +89,22 @@ if [[ "$windowspart" ]]; then
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
-
+# Get zan-arch-install downloaded.
+git clone https://github.com/DanZanzibar/zan-arch-install.git /home/zan/zan-arch-install
 
 # Install packages
-pacman -S --noconfirm - < 
+pack_dir=/home/zan/zan-arch-install/packages
+cat $pack_dir/core-utils.txt $pack_dir/gui.txt $pack_dir/audio.txt $pack_dir/network.txt | pacman -S --noconfirm -
 
-# Set up config files
+# Systemd enabling for system services
+systemctl enable bluetooth.service sshd.service
+EOF
 
 # Finishing up.
 echo "Installation complete! Things to do after reboot:"
+echo "  1. Check that sudo is working and 'zan' added to sudoers file."
+echo "  2. Get connected to internet via nmcli."
+echo "  3. Run 'sudo zan-arch-install/post-install'."
 umount -R /mnt
 reboot
-EOF
+

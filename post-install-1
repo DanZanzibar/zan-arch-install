@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Enable systemd user services
+systemctl --user enable pulseaudio.service syncthing.service
+systemctl --user start pulseaudio.service syncthing.service
+
+git clone https://github.com/DanZanzibar/dotfiles.git
+
+for file in dotfiles/xorg.conf.d/*; do
+    ln -s -t /etc/X11/xorg.conf.d/ file
+done
+
+ln -sf -t "$HOME" dotfiles/.bashrc dotfiles/.gitconfig dotfiles/.xinitrc dotfiles/.xbindkeysrc
+
+if [[ "$HOSTNAME" != 'desktop' ]]; then
+    ln -sf -t "$HOME" dotfiles/.Xresources
+fi
+
+mkdir .config
+rm -r .config/polybar .config/autorandr .config/Zeal
+ln -s -t .config dotfiles/polybar dotfiles/Zeal
+
+mkdir .config/herbstluftwm 
+ln -sf -t .config/herbstluftwm dotfiles/herbstluftwm/autostart dotfiles/herbstluftwm/scripts/
+
+ln -s -t .config "dotfiles/$HOSTNAME/autorandr"
+ln -s -t .config/herbstluftwm "dotfiles/$HOSTNAME/layouts"

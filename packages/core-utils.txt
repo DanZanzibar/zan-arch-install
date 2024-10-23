@@ -2,4 +2,3 @@ sudo
 bash-completion
 tree
 less
-github-cli
