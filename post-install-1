@@ -32,7 +32,6 @@ mkdir ~/.config
 rm -r ~/.config/polybar ~/.config/autorandr ~/.config/Zeal
 ln -s -t ~/.config ~/dotfiles/polybar ~/dotfiles/Zeal "~/dotfiles/$HOSTNAME/autorandr"
 
-# Herbstluftwm - link autostart and layouts folder.
+# Symlink for herbstluftwm 'autostart'.
 mkdir ~/.config/herbstluftwm 
 ln -sf -t ~/.config/herbstluftwm ~/dotfiles/herbstluftwm/autostart
-ln -s -t ~/.config/herbstluftwm "~/dotfiles/$HOSTNAME/layouts"
