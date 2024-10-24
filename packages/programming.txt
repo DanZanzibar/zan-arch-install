@@ -1,0 +1,9 @@
+github-cli
+zeal
+python
+python-pipx
+python-poetry
+pyright
+shellcheck
+bash-language-server
+clang

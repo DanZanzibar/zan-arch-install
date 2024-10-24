@@ -3,3 +3,5 @@ pulseaudio-alsa
 pulseaudio-bluetooth
 pulseaudio-equalizer
 pamixer
+alsa-utils
+sof-firmware
