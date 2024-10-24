@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+symlink() {
+    
+}
+
 # Symlinks for xorg conf files.
 mkdir /etc/X11/xorg.conf.d
 for file in ~/dotfiles/xorg.conf.d/*; do

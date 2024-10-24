@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
 
-# Install more packages.
-sudo ~/zan-arch-install/post-install-1-root
+install_notes="~/install-notes.txt"
+
+# Install packages
+sudo pacman -Syu
+sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/gui.txt
+sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/audio.txt
+sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/network.txt
+sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/programming.txt 
+
+# Enable systemd system services
+sudo systemctl enable bluetooth.service
+sudo systemctl enable sshd.service
 
 # Enable systemd user services.
 systemctl --user enable pulseaudio.service
@@ -31,3 +41,5 @@ gh auth login
 
 # Clean up.
 sudo rm -rf ~/zan-arch-install
+
+echo "Check dotfiles/backup to see what config files were replaced."
