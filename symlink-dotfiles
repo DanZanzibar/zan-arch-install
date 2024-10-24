@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-symlink() {
-    
-}
 
 # Symlinks for xorg conf files.
 mkdir /etc/X11/xorg.conf.d
