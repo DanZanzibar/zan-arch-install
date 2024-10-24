@@ -1,25 +1,27 @@
 #!/usr/bin/env bash
 
+backups=~/dotfiles/backups
 
 # Symlinks for xorg conf files.
-mkdir /etc/X11/xorg.conf.d
-for file in ~/dotfiles/xorg.conf.d/*; do
-    sudo ln -sf -t /etc/X11/xorg.conf.d/ "$file"
-done
+sudo ~/zan-arch-install/scripts/symlink-files-in-dir ~/dotfiles/xorg.conf.d/ /etc/X11/xorg.conf.d/
 
 # Symlinks for home directory dot files.
-ln -sf -t . ~/dotfiles/.bashrc ~/dotfiles/.gitconfig ~/dotfiles/.xinitrc ~/dotfiles/.xbindkeysrc
+~/zan-arch-install/scripts/symlink-files-in-dir ~/dotfiles/home/ ~
 
 # Symlink '.Xresources' for high DPI screens.
-if [[ "$HOSTNAME" != 'desktop' ]]; then
-    ln -sf -t . ~/dotfiles/x1-carbon/.Xresources 
+if [[ -f ~/dotfiles/"$HOSTNAME"/.Xresources ]]; then
+    ~/zan-arch-install/scripts/symlink ~/dotfiles/"$HOSTNAME"/.Xresources ~
 fi
 
 # Symlinks for '.config'.
-mkdir ~/.config
-rm -r ~/.config/polybar ~/.config/autorandr ~/.config/Zeal
-ln -s -t ~/.config ~/dotfiles/polybar ~/dotfiles/Zeal "~/dotfiles/$HOSTNAME/autorandr"
+if [[ ! -d ~/.config ]]; then
+    mkdir ~/.config
+fi
+~/zan-arch-install/scripts/symlink-files-in-dir ~/dotfiles/config/ ~/.config/
+~/zan-arch-install/scripts/symlink ~/dotfiles/"$HOSTNAME"/autorandr ~/.config/
 
 # Symlink for herbstluftwm 'autostart'.
-mkdir ~/.config/herbstluftwm 
-ln -sf -t ~/.config/herbstluftwm ~/dotfiles/herbstluftwm/autostart
+if [[ ! -d ~/.config/herbstluftwm ]]; then
+    mkdir ~/.config/herbstluftwm
+fi
+~/zan-arch-install/scripts/symlink ~/dotfiles/herbstluftwm/autostart ~/.config/herbstluftwm/
