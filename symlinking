@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Symlinks for xorg conf files.
+mkdir /etc/X11/xorg.conf.d
+for file in ~/dotfiles/xorg.conf.d/*; do
+    sudo ln -sf -t /etc/X11/xorg.conf.d/ "$file"
+done
+
+# Symlinks for home directory dot files.
+ln -sf -t . ~/dotfiles/.bashrc ~/dotfiles/.gitconfig ~/dotfiles/.xinitrc ~/dotfiles/.xbindkeysrc
+
+# Symlink '.Xresources' for high DPI screens.
+if [[ "$HOSTNAME" != 'desktop' ]]; then
+    ln -sf -t . ~/dotfiles/x1-carbon/.Xresources 
+fi
+
+# Symlinks for '.config'.
+mkdir ~/.config
+rm -r ~/.config/polybar ~/.config/autorandr ~/.config/Zeal
+ln -s -t ~/.config ~/dotfiles/polybar ~/dotfiles/Zeal "~/dotfiles/$HOSTNAME/autorandr"
+
+# Symlink for herbstluftwm 'autostart'.
+mkdir ~/.config/herbstluftwm 
+ln -sf -t ~/.config/herbstluftwm ~/dotfiles/herbstluftwm/autostart

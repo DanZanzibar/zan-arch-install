@@ -2,9 +2,10 @@
 
 # Install packages
 pacman -Syu
-pacman -S --noconfirm - < zan-arch-install/packages/gui.txt
-pacman -S --noconfirm - < zan-arch-install/packages/audio.txt
-pacman -S --noconfirm - < zan-arch-install/packages/network.txt
+pacman -S --noconfirm - < ~/zan-arch-install/packages/gui.txt
+pacman -S --noconfirm - < ~/zan-arch-install/packages/audio.txt
+pacman -S --noconfirm - < ~/zan-arch-install/packages/network.txt
+pacman -S --noconfirm - < ~/zan-arch-install/packages/post-install.txt 
 
 # Systemd enabling for system services
 systemctl enable bluetooth.service

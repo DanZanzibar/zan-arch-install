@@ -3,35 +3,31 @@
 # Install more packages.
 sudo ~/zan-arch-install/post-install-1-root
 
-# Enable systemd user services
+# Enable systemd user services.
 systemctl --user enable pulseaudio.service
 systemctl --user enable syncthing.service
 systemctl --user start pulseaudio.service
 systemctl --user start syncthing.service
 
-# Get dot files and do symlinking.
+# Get dot files.
 git clone https://github.com/DanZanzibar/dotfiles.git
 source ~/dotfiles/.bashrc
 
-# Symlinks for xorg conf files.
-mkdir /etc/X11/xorg.conf.d
-for file in ~/dotfiles/xorg.conf.d/*; do
-    ln -sf -t /etc/X11/xorg.conf.d/ "$file"
-done
+# Symlink config files.
+~/zan-arch-install/symlinking
 
-# Symlinks for home directory dot files.
-ln -sf -t . ~/dotfiles/.bashrc ~/dotfiles/.gitconfig ~/dotfiles/.xinitrc ~/dotfiles/.xbindkeysrc
+# Chrome
+mkdir ~/builds
+cd ~/builds/
+git clone https://aur.archlinux.org/google-chrome.git
+cd ~/builds/google-chrome/
+makepkg -si
 
-# Symlink '.Xresources' for high DPI screens.
-if [[ "$HOSTNAME" != 'desktop' ]]; then
-    ln -sf -t . ~/dotfiles/x1-carbon/.Xresources 
-fi
+# Set up Github auth.
+gh auth login
 
-# Symlinks for '.config'.
-mkdir ~/.config
-rm -r ~/.config/polybar ~/.config/autorandr ~/.config/Zeal
-ln -s -t ~/.config ~/dotfiles/polybar ~/dotfiles/Zeal "~/dotfiles/$HOSTNAME/autorandr"
+# Emacs and language server set up.
 
-# Symlink for herbstluftwm 'autostart'.
-mkdir ~/.config/herbstluftwm 
-ln -sf -t ~/.config/herbstluftwm ~/dotfiles/herbstluftwm/autostart
+
+# Clean up.
+sudo rm -rf ~/zan-arch-install
