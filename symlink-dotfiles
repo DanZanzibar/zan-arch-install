@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-export backups=~/dotfiles/backups
+export backups=~/dotfiles/backup
 
 # Symlinks for xorg conf files.
-sudo ~/zan-arch-install/scripts/symlink-files-in-dir ~/dotfiles/xorg.conf.d/ /etc/X11/xorg.conf.d/
+sudo -E ~/zan-arch-install/scripts/symlink-files-in-dir ~/dotfiles/xorg.conf.d/ /etc/X11/xorg.conf.d/
 
 # Symlinks for home directory dot files.
 ~/zan-arch-install/scripts/symlink-files-in-dir ~/dotfiles/home/ ~
