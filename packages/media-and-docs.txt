@@ -1,8 +1,0 @@
-vlc
-qbittorrent
-libre-office
-calculator?
-pdf reader
-thunderbird
-
-rename to media-and-office

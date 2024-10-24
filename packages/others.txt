@@ -1,0 +1,6 @@
+vlc
+qbittorrent
+thunderbird
+libreoffice-still
+hunspell
+hunspell-en_ca

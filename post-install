@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-install_notes="~/install-notes.txt"
+export install_notes="~/install-notes.txt"
 
 # Install packages
 sudo pacman -Syu
@@ -32,12 +32,16 @@ cd ~/builds/
 git clone https://aur.archlinux.org/google-chrome.git
 cd ~/builds/google-chrome/
 makepkg -si
+cd
+
+# Emacs and language server set up.
+cd ~/.emacs.d/
+git clone https://github.com/DanZanzibar/zan-emacs.git
+ln zan-emacs/init.el
+cd
 
 # Set up Github auth.
 gh auth login
-
-# Emacs and language server set up.
-
 
 # Clean up.
 sudo rm -rf ~/zan-arch-install
