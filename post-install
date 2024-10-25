@@ -22,7 +22,7 @@ git clone https://github.com/DanZanzibar/dotfiles.git
 source ~/dotfiles/.bashrc
 
 # Symlink config files.
-~/zan-arch-install/symlink-dotfiles
+~/zan-arch-install/scripts/symlink.py 
 
 # Chrome
 mkdir ~/builds
