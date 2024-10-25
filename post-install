@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-export install_notes="~/install-notes.txt"
-
 # Install packages
 sudo pacman -Syu
 sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/gui.txt
@@ -34,7 +32,7 @@ cd ~/builds/google-chrome/
 makepkg -si
 cd
 
-# Emacs and language server set up.
+# Emacs set up.
 cd ~/.emacs.d/
 git clone https://github.com/DanZanzibar/zan-emacs.git
 ln zan-emacs/init.el
