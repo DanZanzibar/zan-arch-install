@@ -14,7 +14,7 @@ HOST_DIR = join(DOTS, expandvars('$HOSTNAME'))
 SYMLINK_FILES_IN_DIRS = [
     (join(DOTS, 'home'), HOME),
     (join(DOTS, 'config'), CONFIG),
-    (join(DOTS, 'xorg.conf.d'), 'etc/X11/xorg.conf.d')
+    (join(DOTS, 'xorg.conf.d'), '/etc/X11/xorg.conf.d')
 ]
 SYMLINK_OTHERS = [
     (join(HOST_DIR, 'autorandr'), CONFIG),
@@ -43,6 +43,7 @@ def backup_and_symlink(source: str, dest_dir: str) -> None:
     dest = join(dest_dir, basename(source))
     backup_or_remove(dest)
     symlink(source, dest)
+    print(f'{dest} symlinked to {source}')
 
 def symlink_all_in_dir(source_dir: str, dest_dir: str) -> None:
     for file_name in listdir(source_dir):

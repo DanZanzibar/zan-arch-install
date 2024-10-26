@@ -35,9 +35,6 @@ read bootpart
 echo "Root partition: (ex. /dev/sda0p1 or /dev/nvme0n0)"
 read rootpart
 
-echo "Enter Windows partition (ex. /dev/sda0pq or /dev/nvme0n1p1)"
-read windowspart
-
 pswd=''
 
 while [[ -z "$pswd" ]]; do
@@ -59,10 +56,6 @@ mkfs.fat -F 32 "$bootpart"
 
 mount "$rootpart" /mnt
 mount --mkdir "$bootpart" /mnt/boot
-
-if [[ "$windowspart" ]]; then
-    mount --mkdir "$windowspart" /mnt/winboot
-fi
 
 pacstrap -K /mnt $(cat zan-arch-install/packages/base.txt "$drivers" | tr '\n' ' ')
 
