@@ -15,7 +15,7 @@ SYMLINK_ALL_IN_DIRS = [
     (join(DOTS, 'home'), HOME),
     (join(DOTS, 'config'), CONFIG),
     (join(DOTS, 'xorg.conf.d'), '/etc/X11/xorg.conf.d'),
-    (join(HOST_DIR, 'xorg.conf.d'), '/etc/X11/org.conf.d'),
+    (join(HOST_DIR, 'xorg.conf.d'), '/etc/X11/xorg.conf.d'),
     (join(DOTS, 'udev-rules'), '/etc/udev/rules.d')
 ]
 SYMLINK_OTHERS = [
