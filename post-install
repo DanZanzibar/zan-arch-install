@@ -5,7 +5,8 @@ sudo pacman -Syu
 sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/gui.txt
 sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/audio.txt
 sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/network.txt
-sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/programming.txt 
+sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/programming.txt
+sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/others.txt
 
 # Enable systemd system services
 sudo systemctl enable bluetooth.service
