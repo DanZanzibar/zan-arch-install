@@ -11,10 +11,11 @@ CONFIG = join(HOME, '.config')
 BACKUP = join(DOTS, 'backup')
 HOST_DIR = join(DOTS, expandvars('$HOSTNAME'))
 
-SYMLINK_FILES_IN_DIRS = [
+SYMLINK_ALL_IN_DIRS = [
     (join(DOTS, 'home'), HOME),
     (join(DOTS, 'config'), CONFIG),
     (join(DOTS, 'xorg.conf.d'), '/etc/X11/xorg.conf.d'),
+    (join(HOST_DIR, 'xorg.conf.d'), '/etc/X11/org.conf.d'),
     (join(DOTS, 'udev-rules'), '/etc/udev/rules.d')
 ]
 SYMLINK_OTHERS = [
@@ -52,7 +53,7 @@ def symlink_all_in_dir(source_dir: str, dest_dir: str) -> None:
         backup_and_symlink(source, dest_dir)
 
 
-for source_dir, dest_dir in SYMLINK_FILES_IN_DIRS:
+for source_dir, dest_dir in SYMLINK_ALL_IN_DIRS:
     symlink_all_in_dir(source_dir, dest_dir)
 
 for source, dest_dir in SYMLINK_OTHERS:

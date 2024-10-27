@@ -80,9 +80,7 @@ echo "zan:$pswd" | chpasswd
 
 # Set up GRUB
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-if [[ "$windowspart" ]]; then
-    echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
-fi
+echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Get zan-arch-install downloaded.
