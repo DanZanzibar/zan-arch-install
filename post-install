@@ -10,12 +10,19 @@ sudo pacman -S --noconfirm - < ~/zan-arch-install/packages/others.txt
 
 # Enable systemd system services
 sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
+
 sudo systemctl enable sshd.service
+sudo systemctl start sshd.service
+
+sudo systemctl enable systemd-timesyncd.service
+sudo systemctl start systemd-timesyncd.service
 
 # Enable systemd user services.
 systemctl --user enable pulseaudio.service
-systemctl --user enable syncthing.service
 systemctl --user start pulseaudio.service
+
+systemctl --user enable syncthing.service
 systemctl --user start syncthing.service
 
 # Get dot files.
