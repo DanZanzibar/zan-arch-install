@@ -52,7 +52,6 @@ while [[ -z "$pswd" ]]; do
 done
 
 mkfs.ext4 "$rootpart"
-mkfs.fat -F 32 "$bootpart"
 
 mount "$rootpart" /mnt
 mount --mkdir "$bootpart" /mnt/boot
