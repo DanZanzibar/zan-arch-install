@@ -1,0 +1,25 @@
+arch-chroot /mnt <<EOF
+# Locale set up
+ln -sf /usr/share/zoneinfo/posix/Canada/Mountain /etc/localtime
+hwclock --systohc
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+# Network Manager config
+echo "$comp" > /etc/hostname
+systemctl enable NetworkManager.service
+
+# Set up user and passwords
+echo "root:$pswd" | chpasswd
+useradd -m zan
+echo "zan:$pswd" | chpasswd
+
+# Set up GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# Get zan-arch-install downloaded.
+git clone https://github.com/DanZanzibar/zan-arch-install.git /home/zan/zan-arch-install
+EOF
