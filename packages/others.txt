@@ -4,3 +4,4 @@ thunderbird
 libreoffice-still
 hunspell
 hunspell-en_ca
+fd
