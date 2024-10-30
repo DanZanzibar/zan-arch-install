@@ -21,7 +21,8 @@ SYMLINK_ALL_IN_DIRS = [
 SYMLINK_OTHERS = [
     (join(HOST_DIR, 'autorandr'), CONFIG),
     (join(HOST_DIR, '.Xresources'), HOME),
-    (join(DOTS, 'herbstluftwm/autostart'), join(CONFIG, 'herbstluftwm'))
+    (join(DOTS, 'herbstluftwm/autostart'), join(CONFIG, 'herbstluftwm')),
+    (join(DOTS, 'gtk-3.0'), CONFIG)
 ]
 
 
