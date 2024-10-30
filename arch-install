@@ -9,13 +9,6 @@ if [[ $internet = 'n' ]]; then
     exit 1
 fi
 
-echo "Did you create (but not format) your partitions? (y/n)"
-read partitions
-
-if [[ $partitions = 'n' ]]; then
-    exit 1
-fi
-
 echo "Which computer (desktop/x1-carbon/legion)?"
 read comp
 
@@ -26,10 +19,7 @@ if [[ $comp != 'desktop' ]] && [[ $comp != 'x1-carbon' ]] && [[ $comp != 'legion
     exit 1
 fi
 
-echo "Disk: (ex. /dev/sda1 or /dev/nvme0n1)"
-read disk
-
-echo "Boot partition: (ex. /dev/sda1p0 or /dev/nvme0n1p1)"
+echo "EFI system partition: (ex. /dev/sda1p0 or /dev/nvme0n1p1)"
 read bootpart
 
 echo "Root partition: (ex. /dev/sda0p1 or /dev/nvme0n0)"
@@ -54,7 +44,7 @@ done
 mkfs.ext4 "$rootpart"
 
 mount "$rootpart" /mnt
-mount --mkdir "$bootpart" /mnt/boot
+mount --mkdir "$bootpart" /mnt/efi
 
 pacstrap -K /mnt $(cat zan-arch-install/packages/base.txt "$drivers" | tr '\n' ' ')
 
@@ -78,7 +68,7 @@ useradd -m zan
 echo "zan:$pswd" | chpasswd
 
 # Set up GRUB
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=grub
 echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -88,9 +78,10 @@ EOF
 
 # Finishing up.
 echo "Installation complete! Things to do after reboot:"
-echo "  1. Check that sudo is working and 'zan' added to sudoers file."
-echo "  2. Get connected to internet via nmcli."
+echo "  1. Check that sudo is working and 'zan' added to sudoers file using 'EDITOR=emacs visudo'."
+echo "  2. Get connected to internet via 'nmcli device wifi connect NETWORK_NAME'."
 echo "  3. Run 'sudo zan-arch-install/post-install'."
+echo "  4. Run 'sudo grub-mkconfig -o /boot/grub/grub.cfg' again to detect Windows bootloaders."
 
 umount -R /mnt
 reboot
