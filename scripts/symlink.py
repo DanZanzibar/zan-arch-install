@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from os import symlink, listdir, rmdir, remove
+from os import mkdir, symlink, listdir, rmdir, remove
 from os.path import join, basename, exists, expandvars, islink, isfile, isdir
 from shutil import move
 
@@ -48,6 +48,8 @@ def backup_and_symlink(source: str, dest_dir: str) -> None:
     print(f'{dest} symlinked to {source}')
 
 def symlink_all_in_dir(source_dir: str, dest_dir: str) -> None:
+    if not exists(dest_dir):
+        mkdir(dest_dir)
     for file_name in listdir(source_dir):
         source = join(source_dir, file_name)
         backup_and_symlink(source, dest_dir)
