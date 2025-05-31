@@ -1,5 +1,7 @@
 github-cli
 zeal
+github-cli
+zeal
 python
 python-pipx
 python-poetry
@@ -7,3 +9,8 @@ pyright
 shellcheck
 bash-language-server
 clang
+texlive-latex
+texlive-latexextra
+texlive-plaingeneric
+jdk-openjdk
+djvulibre

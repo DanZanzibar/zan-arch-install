@@ -4,3 +4,6 @@ bluez
 bluez-utils
 cups
 cups-pdf
+sane
+sane-airscan
+ntfs-3g

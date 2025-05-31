@@ -5,5 +5,10 @@ libreoffice-still
 hunspell
 hunspell-en_ca
 fd
+progress
 udisks2
 udiskie
+xclip
+shotwell
+flameshot
+noto-fonts

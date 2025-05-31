@@ -1,7 +1,4 @@
-pulseaudio
-pulseaudio-alsa
-pulseaudio-bluetooth
-pulseaudio-equalizer
+pipewire-pulse
 pamixer
 alsa-utils
 sof-firmware

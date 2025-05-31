@@ -52,7 +52,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt <<EOF
 # Locale set up
-ln -sf /usr/share/zoneinfo/posix/Canada/Mountain /etc/localtime
+ln -sf /usr/share/zoneinfo/Canada/Mountain /etc/localtime
 hwclock --systohc
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
